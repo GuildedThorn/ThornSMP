@@ -1,9 +1,6 @@
 package com.guildedthorn.thornsmp.bot;
 
-import com.guildedthorn.thornsmp.bot.commands.DeployCommand;
-import com.guildedthorn.thornsmp.bot.commands.ListCommand;
-import com.guildedthorn.thornsmp.bot.commands.MessageCommand;
-import com.guildedthorn.thornsmp.bot.commands.TPSCommand;
+import com.guildedthorn.thornsmp.bot.commands.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -32,6 +29,8 @@ public final class SMPBot {
                 .registerCommand(new MessageCommand())
                 .registerCommand(new TPSCommand())
                 .registerCommand(new DeployCommand())
+                .registerCommand(new KickCommand())
+                .registerCommand(new BanCommand())
                 .registerCommand(new ListCommand());
         this.jda = JDABuilder.create(token, EnumSet.allOf(GatewayIntent.class))
                 .setAutoReconnect(true)
