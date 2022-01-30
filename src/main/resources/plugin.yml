@@ -1,0 +1,7 @@
+name: ThornSMP
+version: '${project.version}'
+main: com.guildedthorn.thornsmp.ThornSMP
+api-version: 1.18
+authors: [ KingRainbow44 ]
+description: The plugin that handles smaller things on the Thorn SMP.
+website: https://guildedthorn.com
