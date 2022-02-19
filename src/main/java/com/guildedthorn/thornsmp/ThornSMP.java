@@ -5,6 +5,7 @@ import com.guildedthorn.thornsmp.bot.SMPBot;
 import com.guildedthorn.thornsmp.item.RecipeManager;
 import com.guildedthorn.thornsmp.player.SMPPlayer;
 import com.guildedthorn.thornsmp.utils.Config;
+import com.guildedthorn.thornsmp.utils.absolute.Constants;
 import com.kingrainbow44.crafttools.player.CraftPlayerManager;
 import com.kingrainbow44.crafttools.plugin.ExtendedPlugin;
 import fr.mrmicky.fastinv.FastInvManager;
@@ -12,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import tech.xigam.elixirapi.ElixirAPI;
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,6 +27,7 @@ public final class ThornSMP extends ExtendedPlugin {
     private BossBar bossBar;
     private Config config = new Config();
     private SMPBot bot;
+    private ElixirAPI elixirApi;
     
     public static ThornSMP getInstance() {
         return instance;
@@ -44,6 +47,10 @@ public final class ThornSMP extends ExtendedPlugin {
     
     public SMPBot getBot() {
         return this.bot;
+    }
+    
+    public ElixirAPI getElixirApi() {
+        return this.elixirApi;
     }
 
     /*
@@ -65,13 +72,17 @@ public final class ThornSMP extends ExtendedPlugin {
         } catch (IOException ignored) { }
         
         CraftPlayerManager.setPlayerClass(SMPPlayer.class);
+        this.elixirApi = ElixirAPI.create(Constants.ELIXIR_API_KEY);
+        
+        if(!Constants.ELIXIR_ENDPOINT.isEmpty())
+            ElixirAPI.ENDPOINT_URL = Constants.ELIXIR_ENDPOINT;
     }
 
     @Override
     protected void enable() {
         this.bossBar = Bukkit.createBossBar(colorize("&cThornSMP"), BarColor.RED, BarStyle.SOLID);
         if(!this.config.bot.token.isEmpty()) {
-            this.bot = SMPBot.initialize(this.config.bot.token);
+            this.bot = SMPBot.initialize(Constants.BOT_TOKEN);
         }
         FastInvManager.register(this);
         RecipeManager.addAllRecipes();

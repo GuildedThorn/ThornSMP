@@ -10,15 +10,15 @@ import tech.xigam.cch.command.Command;
 import tech.xigam.cch.utils.Argument;
 import tech.xigam.cch.utils.Interaction;
 
-import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public class BanCommand extends Command implements Arguments {
-
+public final class BanCommand extends Command implements Arguments {
     public BanCommand() {
-        super("ban", "Ban an online player from the smp.");
+        super("ban", "Ban an online player from the server.",
+                "What is the name of the **online** player you want to ban?",
+                "Why do you want to player this player?");
     }
 
     @Override
@@ -26,7 +26,12 @@ public class BanCommand extends Command implements Arguments {
         if(interaction.getMember().getId().matches("654849939175768074")) {
             Player player = Bukkit.getPlayer(interaction.getArgument("name", String.class));
             if (player != null) {
-                Bukkit.getBanList(BanList.Type.NAME).addBan(player.getName(), interaction.getArgument("reason", "You were banned by admin.", String.class), new Date(System.currentTimeMillis()+60*60*1000), null);
+                Bukkit.getBanList(BanList.Type.NAME).addBan(
+                        player.getName(),
+                        interaction.getArgument("reason", "Banned by admin.", String.class),
+                        new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 7)),
+                        interaction.getMember().getEffectiveName()
+                );
                 interaction.reply(EmbedUtil.getEmbed("Successfully Banned the player."));
             } else {
                 interaction.reply(EmbedUtil.getEmbed("The player is not online."));

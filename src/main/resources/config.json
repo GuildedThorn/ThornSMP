@@ -1,0 +1,14 @@
+{
+  "bot": {
+    "token": "",
+    "bridgeChannel": "936656719977791588"
+  },
+  "server": {
+    "guildId": "887516061266755585",
+    "voiceChannelId": "887526088811618366"
+  },
+  "elixir": {
+    "endpoint": "https://app.ponjo.club/v1/elixir/",
+    "apiKey": ""
+  }
+}
